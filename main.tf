@@ -5,6 +5,22 @@ terraform {
       version = "1.82.2"
     }
   }
+
+  backend "s3" {
+    # Add -backend-config="bucket=obs-bucket-name" when running terraform init
+    # bucket = "obs-bucket-name"
+    key    = "terraform.tfstate"
+    region = var.region
+    endpoints = {
+      s3 = "https://obs.${var.region}.myhuaweicloud.com"
+    }
+
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+  }
 }
 
 provider "huaweicloud" {
