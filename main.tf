@@ -12,7 +12,7 @@ terraform {
     key    = "terraform.tfstate"
     region = var.region
     endpoints = {
-      s3 = "https://obs.${var.region}.myhuaweicloud.com"
+      s3 = "https://obs.la-north-2.myhuaweicloud.com"
     }
 
     skip_region_validation      = true
