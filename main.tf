@@ -10,7 +10,7 @@ terraform {
     # Add -backend-config="bucket=obs-bucket-name" when running terraform init
     # bucket = "obs-bucket-name"
     key    = "terraform.tfstate"
-    region = var.region
+    region = "la-north-2"
     endpoints = {
       s3 = "https://obs.la-north-2.myhuaweicloud.com"
     }
