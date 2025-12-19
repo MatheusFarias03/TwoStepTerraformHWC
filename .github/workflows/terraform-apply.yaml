@@ -61,3 +61,9 @@ jobs:
 
       - name: Connect to SWR
         run: docker login -u la-north-2@${{ secrets.HWC_ACCESS_KEY }} -p ${{ secrets.DOCKER_LOGIN_PASS }} swr.la-north-2.myhuaweicloud.com
+
+      - name: Build image
+        run: docker build -f docker/Dockerfile -t ${{ secrets.SWR_URL }}/${{ secrets.ORGANIZATION_NAME }}/${{ secrets.REPO_NAME }}:latest .
+
+      - name: Push image
+        run: docker push ${{ secrets.SWR_URL }}/${{ secrets.ORGANIZATION_NAME }}/${{ secrets.REPO_NAME }}:latest
