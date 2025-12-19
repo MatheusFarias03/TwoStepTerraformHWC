@@ -46,7 +46,7 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Terraform Init
-        run: terraform init -backend-config="bucket=${{ secrets.HWC_OBS_BUCKET_NAME }}"
+        run: terraform init -backend-config="bucket=${{ vars.HWC_OBS_BUCKET_NAME }}"
 
       - name: Apply registry module
         run: terraform apply -auto-approve -target=module.registry
@@ -63,7 +63,7 @@ jobs:
         run: docker login -u la-north-2@${{ secrets.HWC_ACCESS_KEY }} -p ${{ secrets.DOCKER_LOGIN_PASS }} swr.la-north-2.myhuaweicloud.com
 
       - name: Build image
-        run: docker build -f docker/Dockerfile -t ${{ secrets.SWR_URL }}/${{ secrets.ORGANIZATION_NAME }}/${{ secrets.REPO_NAME }}:latest .
+        run: docker build -f docker/Dockerfile -t ${{ vars.SWR_URL }}/${{ vars.ORGANIZATION_NAME }}/${{ vars.REPO_NAME }}:latest .
 
       - name: Push image
-        run: docker push ${{ secrets.SWR_URL }}/${{ secrets.ORGANIZATION_NAME }}/${{ secrets.REPO_NAME }}:latest
+        run: docker push ${{ vars.SWR_URL }}/${{ vars.ORGANIZATION_NAME }}/${{ vars.REPO_NAME }}:latest
