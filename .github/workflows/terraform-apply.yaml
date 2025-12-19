@@ -15,25 +15,26 @@ on:
           - skip
           - apply
 
+env:
+  # Terraform variables' values, used to provision Huawei Cloud resources
+  TF_VAR_access_key: ${{ secrets.HWC_ACCESS_KEY }}
+  TF_VAR_secret_key: ${{ secrets.HWC_SECRET_KEY }}
+
+  # used to configure a Huawei Cloud OBS bucket as remote state backend (S3-compatible)
+  # Reference: https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/guides/remote-state-backend
+  AWS_ACCESS_KEY_ID: ${{ secrets.HWC_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.HWC_SECRET_KEY }}
+  AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+  AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+
 jobs:
-  terraform:
+  registry:
+    name: Terraform – Registry
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
       pull-requests: write
-
-    env:
-      # Terraform variables' values, used to provision Huawei Cloud resources
-      TF_VAR_access_key: ${{ secrets.HWC_ACCESS_KEY }}
-      TF_VAR_secret_key: ${{ secrets.HWC_SECRET_KEY }}
-
-      # used to configure a Huawei Cloud OBS bucket as remote state backend (S3-compatible)
-      # Reference: https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/guides/remote-state-backend
-      AWS_ACCESS_KEY_ID: ${{ secrets.HWC_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.HWC_SECRET_KEY }}
-      AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
-      AWS_REQUEST_CHECKSUM_CALCULATION: when_required
 
     steps:
       - name: Checkout repository
@@ -49,3 +50,14 @@ jobs:
 
       - name: Apply registry module
         run: terraform apply -auto-approve -target=module.registry
+
+  build-and-push:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    needs: registry
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Connect to SWR
+        run: docker login -u la-north-2@${{ secrets.HWC_ACCESS_KEY }} -p ${{ secrets.DOCKER_LOGIN_PASS }} swr.la-north-2.myhuaweicloud.com
