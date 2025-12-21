@@ -10,3 +10,7 @@ terraform {
 module "vpc" {
   source = "./vpc"
 }
+
+module "lts" {
+  source = "./lts"
+}
