@@ -69,12 +69,15 @@ jobs:
         run: docker push ${{ vars.SWR_URL }}/${{ vars.ORGANIZATION_NAME }}/${{ vars.REPO_NAME }}:latest
 
   platform:
-    name: Terraofrm - Platform
+    name: Terraform - Platform
     runs-on: ubuntu-latest
     needs: build-and-push
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{ vars.HWC_OBS_BUCKET_NAME }}"
 
     - name: Apply platform module
       run: terraform apply -auto-approve -target=module.platform
