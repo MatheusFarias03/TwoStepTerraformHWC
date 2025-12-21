@@ -62,3 +62,27 @@ resource "huaweicloud_networking_secgroup_rule" "allow_db_conn" {
   ports = "5432"
   remote_ip_prefix = "10.0.1.0/24"
 }
+
+
+# VPCEP for OBS.
+data "huaweicloud_vpcep_service_summary" "vpcep_obs" {
+  endpoint_service_name = "la-north-2.com.myhuaweicloud.v4.obsv2"
+}
+resource "huaweicloud_vpcep_endpoint" "vpcep_obs" {
+  service_id = data.huaweicloud_vpcep_service_summary.vpcep_obs.id
+  vpc_id = huaweicloud_vpc.vpc.id
+  network_id = huaweicloud_vpc_subnet.subnet_inside.id
+}
+
+
+# VPCEP for SWR.
+data "huaweicloud_vpcep_service_summary" "vpcep_swr" {
+  endpoint_service_name = "com.myhuaweicloud.la-north-2.swr"
+}
+resource "huaweicloud_vpcep_endpoint" "vpcep_swr" {
+  service_id = data.huaweicloud_vpcep_service_summary.vpcep_swr.id
+  vpc_id = huaweicloud_vpc.vpc.id
+  network_id = huaweicloud_vpc_subnet.subnet_inside.id
+
+  depends_on = [ huaweicloud_vpcep_endpoint.vpcep_obs ]
+}

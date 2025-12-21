@@ -32,3 +32,7 @@ provider "huaweicloud" {
 module "registry" {
   source = "./modules/registry"
 }
+
+module "platform" {
+  source = "./modules/platform"
+}
