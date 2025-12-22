@@ -14,3 +14,17 @@ module "vpc" {
 module "lts" {
   source = "./lts"
 }
+
+module "cci" {
+  source = "./cci"
+
+  subnet_inside_id = module.vpc_module.subnet_inside_id
+  subnet_inside_ipv4_id = module.vpc_module.subnet_inside_ipv4_id
+  secgroup_inside_id = module.vpc_module.secgroup_inside_id
+
+  cci_log_group_id = module.lts.cci_log_group_id
+  awesome_stream_id = module.lts.awesome_stream_id
+
+  organization_name = var.organization_name
+  awesome_repo = var.awesome_repo
+}
