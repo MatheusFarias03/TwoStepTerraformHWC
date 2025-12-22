@@ -16,6 +16,7 @@ env:
   # Terraform variables' values, used to provision Huawei Cloud resources
   TF_VAR_access_key: ${{ secrets.HWC_ACCESS_KEY }}
   TF_VAR_secret_key: ${{ secrets.HWC_SECRET_KEY }}
+  TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
 
   # used to configure a Huawei Cloud OBS bucket as remote state backend (S3-compatible)
   # Reference: https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/guides/remote-state-backend
