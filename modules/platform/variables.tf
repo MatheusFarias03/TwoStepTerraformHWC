@@ -6,3 +6,7 @@ variable "organization_name" {
 variable "awesome_repo" {
   type = string
 }
+
+variable "db_password" {
+  type = string
+}

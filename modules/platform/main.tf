@@ -35,3 +35,14 @@ module "dns" {
   source = "./dns"
   elb_eip = module.cci.elb_eip_address
 }
+
+module "database" {
+  source = "./database"
+
+  vpc_id = module.vpc.vpc_id
+  availability_zone = module.vpc.availability_zone
+  subnet_db_id = module.vpc.subnet_db_id
+  sec_group_db_id = module.vpc.sec_group_db_id
+
+  db_password = var.db_password
+}

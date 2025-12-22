@@ -15,7 +15,7 @@ resource "huaweicloud_vpc" "vpc" {
 }
 
 
-# Subnets.
+# Subnet Inside.
 resource "huaweicloud_vpc_subnet" "subnet_inside" {
   name = var.subnet_inside_name
   cidr = var.subnet_inside_cidr
@@ -24,6 +24,8 @@ resource "huaweicloud_vpc_subnet" "subnet_inside" {
   vpc_id = huaweicloud_vpc.vpc.id
   availability_zone = var.availability_zone
 }
+
+# Subnet DB.
 resource "huaweicloud_vpc_subnet" "subnet_db" {
   name = var.subnet_db_name
   cidr = var.subnet_db_cidr
