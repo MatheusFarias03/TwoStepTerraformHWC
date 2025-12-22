@@ -39,4 +39,5 @@ module "platform" {
   source = "./modules/platform"
   organization_name = var.organization_name
   awesome_repo = var.awesome_repo
+  db_password = var.db_password
 }
