@@ -50,5 +50,5 @@ variable "elb_pool_awesome_method" {
 
 variable "awesome_pool_binding_name" {
   type = string
-  default = "awesome_pool_binding"
+  default = "awesome-pool-binding"
 }
