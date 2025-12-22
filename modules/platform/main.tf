@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+data "huaweicloud_enterprise_project" "default" {
+  name = "default"
+}
+
 module "vpc" {
   source = "./vpc"
 }
@@ -45,4 +49,9 @@ module "database" {
   sec_group_db_id = module.vpc.sec_group_db_id
 
   db_password = var.db_password
+}
+
+module "waf" {
+  source = "./waf"
+  enterprise_project_id = data.huaweicloud_enterprise_project.default.id
 }
