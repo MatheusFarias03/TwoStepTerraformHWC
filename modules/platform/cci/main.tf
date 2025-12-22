@@ -26,3 +26,10 @@ module "deployments" {
   awesome_repo = var.awesome_repo
   awesome_deployment_name = var.awesome_deployment_name
 }
+
+module "services" {
+  source = "./services"
+
+  vpc_id = var.vpc_id
+  subnet_inside_ipv4_id = var.subnet_inside_ipv4_id
+}

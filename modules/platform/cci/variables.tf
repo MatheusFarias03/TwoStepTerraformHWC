@@ -1,5 +1,8 @@
 # Import variables.
 
+variable "vpc_id" {
+  type = string
+}
 variable "subnet_inside_id" {
   type = string
 }

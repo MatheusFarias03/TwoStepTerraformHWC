@@ -18,6 +18,8 @@ module "lts" {
 module "cci" {
   source = "./cci"
 
+  vpc_id = module.vpc.vpc_id
+
   subnet_inside_id = module.vpc.subnet_inside_id
   subnet_inside_ipv4_id = module.vpc.subnet_inside_ipv4_id
   secgroup_inside_id = module.vpc.secgroup_inside_id
