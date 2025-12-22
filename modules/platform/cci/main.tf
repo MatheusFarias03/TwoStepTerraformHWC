@@ -32,4 +32,7 @@ module "services" {
 
   vpc_id = var.vpc_id
   subnet_inside_ipv4_id = var.subnet_inside_ipv4_id
+
+  inside_namespace = module.deployments.inside_namespace
+  awesome_deployment_name = module.deployments.awesome_deployment_name
 }

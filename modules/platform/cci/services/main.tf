@@ -59,3 +59,38 @@ resource "huaweicloud_elb_listener" "elb_listener" {
   advanced_forwarding_enabled = true
 }
 
+
+# Now, for each application/workload, create the following resources:
+# huaweicloud_elb_pool; huaweicloud_cciv2_pool_binding; 
+
+# ELB Pool for the Awesome deployment.
+resource "huaweicloud_elb_pool" "elb_pool_awesome" {
+  name = var.elb_pool_awesome_name
+  protocol = var.elb_pool_awesome_protocol
+  lb_method = var.elb_pool_awesome_method
+
+  loadbalancer_id = huaweicloud_elb_loadbalancer.awesome_elb.id
+
+  slow_start_enabled  = true
+  slow_start_duration = 100
+
+  vpc_id = var.vpc_id
+  type   = "instance"
+
+  protection_status = "consoleProtection"
+  protection_reason = "made by terraform"
+}
+resource "huaweicloud_cciv2_pool_binding" "awesome_pool_binding" {
+  namespace = var.inside_namespace
+  name = var.awesome_pool_binding_name
+  pool_ref {
+    id = huaweicloud_elb_pool.elb_pool_awesome.id
+  }
+  target_ref {
+    group = "cci/v2"
+    kind = "Deployment"
+    name = var.awesome_deployment_name
+    port = var.protocol_port
+  }
+  depends_on = [ huaweicloud_elb_pool.elb_pool_awesome ]
+}
