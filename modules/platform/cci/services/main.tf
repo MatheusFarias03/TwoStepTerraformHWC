@@ -49,7 +49,7 @@ resource "huaweicloud_elb_listener" "elb_listener" {
   description     = var.elb_listener_description
   protocol        = var.elb_listener_protocol
   protocol_port   = var.protocol_port
-  loadbalancer_id = huaweicloud_elb_loadbalancer.wave_elb.id
+  loadbalancer_id = huaweicloud_elb_loadbalancer.awesome_elb.id
 
   idle_timeout     = 60
   request_timeout  = 60
