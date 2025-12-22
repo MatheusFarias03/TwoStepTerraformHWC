@@ -12,6 +12,10 @@ data "huaweicloud_elb_flavors" "l7_flavors" {
   type            = "L7_elastic"
 }
 
+output "L7_elastic_flavor" {
+  value = data.huaweicloud_elb_flavors.l7_flavors.flavors
+}
+
 # EIP for the ELB.
 resource "huaweicloud_vpc_eip" "elb_eip" {
   publicip {
