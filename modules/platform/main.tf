@@ -30,3 +30,8 @@ module "cci" {
   organization_name = var.organization_name
   awesome_repo = var.awesome_repo
 }
+
+module "dns" {
+  source = "./dns"
+  elb_eip = module.cci.elb_eip_address
+}
