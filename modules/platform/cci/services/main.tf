@@ -94,3 +94,31 @@ resource "huaweicloud_cciv2_pool_binding" "awesome_pool_binding" {
   }
   depends_on = [ huaweicloud_elb_pool.elb_pool_awesome ]
 }
+
+resource "huaweicloud_elb_l7policy" "awesome_policy" {
+  name = var.awesome_policy_name
+  action = var.awesome_policy_action
+  priority = 20
+  description = ""
+  listener_id = huaweicloud_elb_listener.elb_listener.id
+  redirect_pool_id = huaweicloud_elb_pool.elb_pool_awesome.id
+}
+
+# Add a rule for Awesome Policy. (for path)
+resource "huaweicloud_elb_l7rule" "awesome_rule" {
+  l7policy_id = huaweicloud_elb_l7policy.awesome_policy.id
+  type = "PATH"
+  compare_type = "EQUAL_TO"
+  value = var.awesome_path
+}
+
+# Add a rule for Awesome Policy. (for hostname)
+# resource "huaweicloud_elb_l7rule" "awesome_rule" {
+#   l7policy_id = huaweicloud_elb_l7policy.awesome_policy.id
+#   type = "HOST_NAME"
+#   compare_type = "EQUAL_TO"
+
+#   conditions {
+#     value = var.awesome_hostname
+#   }
+# }

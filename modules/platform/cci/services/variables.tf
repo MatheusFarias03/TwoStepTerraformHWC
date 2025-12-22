@@ -47,8 +47,23 @@ variable "elb_pool_awesome_method" {
   type = string
   default = "ROUND_ROBIN"
 }
-
 variable "awesome_pool_binding_name" {
   type = string
   default = "awesome-pool-binding"
+}
+variable "awesome_policy_name" {
+  type = string
+  default = "awesome-policy"
+}
+variable "awesome_policy_action" {
+  type = string
+  default = "REDIRECT_TO_POOL"
+}
+variable "awesome_path" {
+  type = string
+  default = "/awesome"
+}
+variable "awesome_hostname" {
+  type = string
+  default = "awesome.com.br/awesome"
 }
