@@ -32,7 +32,8 @@ resource "huaweicloud_elb_loadbalancer" "awesome_elb" {
 
   vpc_id = var.vpc_id
   ipv4_subnet_id = var.subnet_inside_ipv4_id
-  l7_flavor_id   = data.huaweicloud_elb_flavors.l7_flavors.flavors[0].id
+#   l7_flavor_id   = data.huaweicloud_elb_flavors.l7_flavors.flavors[0].id
+  l7_flavor_id = "f966c002-6c6f-497f-b204-19684db70dec"
 
   availability_zone = [
     "la-north-2a",
