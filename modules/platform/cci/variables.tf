@@ -29,5 +29,5 @@ variable "awesome_repo" {
 
 variable "awesome_deployment_name" {
   type = string
-  default = "awesome_deployment"
+  default = "awesome-deployment"
 }
